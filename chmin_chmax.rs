@@ -24,7 +24,7 @@ fn chmax<T: PartialOrd>(a: &mut T, b: T) -> bool {
 #[cfg(test)]
 mod test {
     use super::*;
-    
+
     #[test]
     fn test_chmin() {
         let mut a = 3;
@@ -47,4 +47,3 @@ mod test {
         assert_eq!(a, 3);
     }
 }
-

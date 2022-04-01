@@ -9,23 +9,15 @@ fn is_prime(x: u64) -> bool {
     if x < 2 {
         false
     } else {
-        let mut ret = true;
         let last = x.sqrt();
-        for n in 2..=last {
-            if x % n == 0 {
-                ret = false;
-                break;
-            }
-        }
-
-        ret
+        (2..=last).all(|n| x % n != 0)
     }
 }
 
 #[snippet]
 fn prime_factorization(mut x: u64) -> Vec<(u64, u64)> {
     assert!(x != 0);
-    
+
     let mut ret: Vec<(u64, u64)> = Vec::new();
     let last = x.sqrt();
     for n in 2..=last {

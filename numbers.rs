@@ -2,10 +2,12 @@
 #![allow(unused_macros)]
 #![allow(dead_code)]
 use cargo_snippet::snippet;
+use itertools::Itertools;
 use num::{integer::Roots, Integer};
 
 #[snippet]
 fn is_prime(x: u64) -> bool {
+    // O(sqrt(N))
     if x < 2 {
         false
     } else {
@@ -39,6 +41,33 @@ fn prime_factorization(mut x: u64) -> Vec<(u64, u64)> {
     ret
 }
 
+#[snippet]
+fn eratos(n: u64) -> Vec<u64> {
+    // O(N*sqrt(N))
+    // 最初はすべてが素数候補
+    let mut is_prime = vec![true; n as usize + 1];
+    let last = n.sqrt() as usize;
+    for i in 2..=last {
+        // 素数の倍数を素数候補から外す
+        if is_prime[i] {
+            let mut j = 2;
+            while i * j <= n as usize {
+                is_prime[i * j] = false;
+                j += 1;
+            }
+        }
+    }
+
+    let mut ans = Vec::new();
+    for i in 2..=(n as usize) {
+        if is_prime[i] {
+            ans.push(i as u64)
+        }
+    }
+
+    ans
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -68,5 +97,11 @@ mod tests {
             assert_eq!(p, 2);
             assert_eq!(ex, 10);
         }
+    }
+
+    #[test]
+    fn test_eratos() {
+        assert_eq!(eratos(12), [2, 3, 5, 7, 11]);
+        assert_eq!(eratos(1), []);
     }
 }

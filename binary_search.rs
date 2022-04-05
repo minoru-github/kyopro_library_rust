@@ -2,10 +2,10 @@
 use cargo_snippet::snippet;
 
 #[snippet]
-fn binary_search() -> i64 {
+fn binary_search(n: i64) -> i64 {
     let is_ok = |x: i64| -> bool {
         // 満たすべき条件
-        if x > 0 {
+        if x >= (n * n + 2 * n) {
             true
         } else {
             false
@@ -23,4 +23,14 @@ fn binary_search() -> i64 {
         }
     }
     ok
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    #[test]
+    fn test_binary_search() {
+        assert_eq!(binary_search(1), 3);
+        assert_eq!(binary_search(22), 528);
+    }
 }

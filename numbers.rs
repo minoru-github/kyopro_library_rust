@@ -68,6 +68,25 @@ fn eratos(n: u64) -> Vec<u64> {
     ans
 }
 
+#[snippet]
+fn enumerate_divisors(n: u64) -> Vec<u64> {
+    //! 約数列挙
+    let mut ans = Vec::new();
+    let last = n.sqrt();
+    for i in 1..=last {
+        if n % i != 0 {
+            continue;
+        }
+        ans.push(i);
+        if i != n / i {
+            ans.push(n / i);
+        }
+    }
+    ans.sort();
+
+    ans
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -103,5 +122,13 @@ mod tests {
     fn test_eratos() {
         assert_eq!(eratos(12), [2, 3, 5, 7, 11]);
         assert_eq!(eratos(1), []);
+    }
+
+    #[test]
+    fn test_enumerate_divisors() {
+        assert_eq!(enumerate_divisors(12), [1, 2, 3, 4, 6, 12]);
+        assert_eq!(enumerate_divisors(7), [1, 7]);
+        assert_eq!(enumerate_divisors(0), []);
+        assert_eq!(enumerate_divisors(1), [1]);
     }
 }

@@ -3,6 +3,7 @@ use cargo_snippet::snippet;
 
 #[snippet]
 fn binary_search(n: i64) -> i64 {
+    //! 二分探索(めぐる式)
     let is_ok = |x: i64| -> bool {
         // 満たすべき条件
         if x >= (n * n + 2 * n) {
@@ -30,6 +31,7 @@ mod test {
     use super::*;
     #[test]
     fn test_binary_search() {
+        //! 二分探索のテスト
         assert_eq!(binary_search(1), 3);
         assert_eq!(binary_search(22), 528);
     }

@@ -7,7 +7,8 @@ use num::{integer::Roots, Integer};
 
 #[snippet]
 fn is_prime(x: u64) -> bool {
-    // O(sqrt(N))
+    //! 素数判定
+    //! O(sqrt(N))
     if x < 2 {
         false
     } else {
@@ -18,6 +19,7 @@ fn is_prime(x: u64) -> bool {
 
 #[snippet]
 fn prime_factorization(mut x: u64) -> Vec<(u64, u64)> {
+    //! 素因数分解
     assert!(x != 0);
 
     let mut ret: Vec<(u64, u64)> = Vec::new();
@@ -43,7 +45,8 @@ fn prime_factorization(mut x: u64) -> Vec<(u64, u64)> {
 
 #[snippet]
 fn eratos(n: u64) -> Vec<u64> {
-    // O(N*sqrt(N))
+    //! n以下の素数列挙(エラトステネスの篩)
+    //! O(N*sqrt(N))
     // 最初はすべてが素数候補
     let mut is_prime = vec![true; n as usize + 1];
     let last = n.sqrt() as usize;
@@ -92,6 +95,7 @@ mod tests {
     use super::*;
     #[test]
     fn test_is_prime() {
+        //! 素数判定のテスト
         assert_eq!(is_prime(3), true);
         assert_eq!(is_prime(17), true);
         assert_eq!(is_prime(200560490131), true);
@@ -103,6 +107,7 @@ mod tests {
 
     #[test]
     fn test_prime_factorization() {
+        //! 素因数分解のテスト
         let ans = prime_factorization(4);
         assert_eq!(ans, [(2, 2),]);
         let ans = prime_factorization(189);
@@ -120,12 +125,14 @@ mod tests {
 
     #[test]
     fn test_eratos() {
+        //! n以下の素数列挙のテスト
         assert_eq!(eratos(12), [2, 3, 5, 7, 11]);
         assert_eq!(eratos(1), []);
     }
 
     #[test]
     fn test_enumerate_divisors() {
+        //! 約数列挙のテスト
         assert_eq!(enumerate_divisors(12), [1, 2, 3, 4, 6, 12]);
         assert_eq!(enumerate_divisors(7), [1, 7]);
         assert_eq!(enumerate_divisors(0), []);

@@ -90,6 +90,20 @@ fn enumerate_divisors(n: u64) -> Vec<u64> {
     ans
 }
 
+#[snippet]
+fn count_digits(mut n : u64) -> u64 {
+    //! 引数nの桁数を数える
+    let mut ans = 1;
+    while n > 0 {
+        n /= 10;
+        if n > 0 {
+            ans+=1;
+        }
+    }
+    
+    ans
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -137,5 +151,15 @@ mod tests {
         assert_eq!(enumerate_divisors(7), [1, 7]);
         assert_eq!(enumerate_divisors(0), []);
         assert_eq!(enumerate_divisors(1), [1]);
+    }
+
+    #[test]
+    fn test_count_digits() {
+        //! 桁数確認のテスト
+        assert_eq!(count_digits(1234), 4);
+        assert_eq!(count_digits(0), 1);
+        assert_eq!(count_digits(1), 1);
+        assert_eq!(count_digits(10),2);
+        assert_eq!(count_digits(18_000_000_000_000_000_000),20);
     }
 }

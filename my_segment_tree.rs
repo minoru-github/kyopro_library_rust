@@ -170,7 +170,7 @@ mod test {
         let N = 10;
         let input = vec![1, 53, 2, 44, 102, 15, 8, 9, 0];
         let mut st = SegmentTree::<MAX>::new(N);
-        for (idx,x) in input.iter().enumerate() {
+        for (idx, x) in input.iter().enumerate() {
             st.set(idx, *x);
         }
 

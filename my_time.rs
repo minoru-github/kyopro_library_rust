@@ -27,9 +27,9 @@ mod test {
     #[test]
     fn test_update_time() {
         let t1 = update_time();
-        assert_eq!(t1,0.0);
+        assert_eq!(t1, 0.0);
         let t2 = update_time();
-        assert_ne!(t2,0.0);
+        assert_ne!(t2, 0.0);
         assert!(t1 < t2);
     }
 }

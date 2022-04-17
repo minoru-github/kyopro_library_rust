@@ -2,6 +2,9 @@
 use cargo_snippet::snippet;
 use std::ops::*;
 
+// refereces:
+// https://qiita.com/namn1125/items/5100cb85021a1d6e8f6c
+#[derive(Copy, Clone, PartialEq, Eq)]
 struct Modint<const MODULO: usize> {
     val: usize,
 }

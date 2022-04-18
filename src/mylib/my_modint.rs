@@ -24,6 +24,12 @@ impl Add for Modint {
     }
 }
 
+impl AddAssign for Modint {
+    fn add_assign(&mut self, other: Self) {
+        self.val = self.val + other.val;
+    }
+}
+
 impl Sub for Modint {
     type Output = Modint;
     fn sub(self, other: Self) -> Self::Output {
@@ -71,6 +77,14 @@ mod tests {
         let x = Modint::new(998244350);
         let y = Modint::new(10);
         let ans = x + y;
+        assert_eq!(ans.val(), 7);
+    }
+
+    #[test]
+    fn test_add_assign_mod998244353() {
+        let mut ans = Modint::new(998244350);
+        let y = Modint::new(10);
+        ans += y;
         assert_eq!(ans.val(), 7);
     }
 

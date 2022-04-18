@@ -60,6 +60,13 @@ impl Mul for Modint {
     }
 }
 
+impl MulAssign for Modint {
+    fn mul_assign(&mut self, other: Self) {
+        self.val = self.val * other.val;
+        self.val %= MODULO;
+    }
+}
+
 impl Modint {
     pub fn new(n: usize) -> Self {
         Self { val: n % MODULO }
@@ -143,6 +150,14 @@ mod tests {
         let x = Modint::new(998244350);
         let y = Modint::new(21738);
         let ans = x * y;
+        assert_eq!(ans.val(), 998179139);
+    }
+
+    #[test]
+    fn test_mul_assign_mod998244353() {
+        let mut ans = Modint::new(998244350);
+        let y = Modint::new(21738);
+        ans *= y;
         assert_eq!(ans.val(), 998179139);
     }
 }

@@ -27,6 +27,7 @@ impl Add for Modint {
 impl AddAssign for Modint {
     fn add_assign(&mut self, other: Self) {
         self.val = self.val + other.val;
+        self.val %= MODULO;
     }
 }
 
@@ -39,6 +40,15 @@ impl Sub for Modint {
         }
         let sub_val = (self_val - other.val) % MODULO;
         Self::Output { val: sub_val }
+    }
+}
+
+impl SubAssign for Modint {
+    fn sub_assign(&mut self, other: Self) {
+        // if self.val < other.val {
+        //     self.val += MODULO;
+        // }
+        self.val = self.val - other.val;
     }
 }
 
@@ -101,6 +111,22 @@ mod tests {
         let x = Modint::new(0);
         let y = Modint::new(10);
         let ans = x - y;
+        assert_eq!(ans.val(), 998244343);
+    }
+
+    #[test]
+    fn test_sub_assign_mod998244353() {
+        let mut ans = Modint::new(111);
+        let y = Modint::new(11);
+        ans -= y;
+        assert_eq!(ans.val(), 100);
+    }
+
+    #[test]
+    fn test_sub_assign_mod998244353_under_zero() {
+        let mut ans = Modint::new(0);
+        let y = Modint::new(10);
+        ans -= y;
         assert_eq!(ans.val(), 998244343);
     }
 

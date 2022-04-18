@@ -45,9 +45,9 @@ impl Sub for Modint {
 
 impl SubAssign for Modint {
     fn sub_assign(&mut self, other: Self) {
-        // if self.val < other.val {
-        //     self.val += MODULO;
-        // }
+        if self.val < other.val {
+            self.val += MODULO;
+        }
         self.val = self.val - other.val;
     }
 }

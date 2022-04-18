@@ -98,6 +98,14 @@ mod tests {
     }
 
     #[test]
+    fn test_add_assign_non_mod() {
+        let mut ans = Modint::new(2);
+        let y = Modint::new(10);
+        ans += y;
+        assert_eq!(ans.val(), 12);
+    }
+
+    #[test]
     fn test_add_assign_mod998244353() {
         let mut ans = Modint::new(998244350);
         let y = Modint::new(10);
@@ -114,6 +122,14 @@ mod tests {
     }
 
     #[test]
+    fn test_sub_mod998244353() {
+        let x = Modint::new(998244383);
+        let y = Modint::new(10);
+        let ans = x - y;
+        assert_eq!(ans.val(), 20);
+    }
+
+    #[test]
     fn test_sub_mod998244353_under_zero() {
         let x = Modint::new(0);
         let y = Modint::new(10);
@@ -122,11 +138,19 @@ mod tests {
     }
 
     #[test]
+    fn test_sub_assign_non_mod() {
+        let x = Modint::new(100);
+        let y = Modint::new(1);
+        let ans = x - y;
+        assert_eq!(ans.val(), 99);
+    }
+
+    #[test]
     fn test_sub_assign_mod998244353() {
-        let mut ans = Modint::new(111);
-        let y = Modint::new(11);
+        let mut ans = Modint::new(998244383);
+        let y = Modint::new(10);
         ans -= y;
-        assert_eq!(ans.val(), 100);
+        assert_eq!(ans.val(), 20);
     }
 
     #[test]
@@ -151,6 +175,14 @@ mod tests {
         let y = Modint::new(21738);
         let ans = x * y;
         assert_eq!(ans.val(), 998179139);
+    }
+
+    #[test]
+    fn test_mul_assign_non_mod() {
+        let mut ans = Modint::new(4);
+        let y = Modint::new(17);
+        ans *= y;
+        assert_eq!(ans.val(), 68);
     }
 
     #[test]

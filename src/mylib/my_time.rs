@@ -28,6 +28,9 @@ mod test {
     fn test_update_time() {
         let t1 = update_time();
         assert_eq!(t1, 0.0);
+        for _ in 0..1000 {
+            update_time();
+        }
         let t2 = update_time();
         assert_ne!(t2, t1);
         assert!(t1 < t2);

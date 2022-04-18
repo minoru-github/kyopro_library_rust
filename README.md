@@ -1,2 +1,5 @@
 # kyopro_library_rust
-rust用の自作ライブラリ
+
+[![Library Test](https://github.com/minoru-github/kyopro_library_rust/actions/workflows/library_test.yml/badge.svg?branch=main)](https://github.com/minoru-github/kyopro_library_rust/actions/workflows/library_test.yml)
+
+rust用の競プロライブラリ

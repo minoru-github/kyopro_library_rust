@@ -84,10 +84,10 @@ impl Dsu {
         }
     }
 
-    pub fn group_size(&mut self, a: usize) -> usize {
-        assert!(a < self.num_node);
+    pub fn group_size(&mut self, leader: usize) -> usize {
+        assert!(leader < self.num_node);
 
-        (-1 * self.parent_or_size[a]) as usize
+        (-1 * self.parent_or_size[leader]) as usize
     }
 
     pub fn group_num(&mut self) -> usize {
@@ -96,8 +96,61 @@ impl Dsu {
 
     pub fn min_index(&mut self, leader: usize) -> usize {
         assert!(leader < self.num_node);
-        assert!(self.parent_or_size[leader] < 0);
 
         self.min_index[leader]
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_dsu() {
+        let n = 10;
+        let mut uf = Dsu::new(n);
+
+        struct Query {
+            a: usize,
+            b: usize,
+        }
+
+        let mut query = Vec::<Query>::new();
+        query.push(Query { a: 0, b: 1 });
+        query.push(Query { a: 1, b: 2 });
+        query.push(Query { a: 0, b: 3 });
+        query.push(Query { a: 4, b: 6 });
+        query.push(Query { a: 3, b: 7 });
+        query.push(Query { a: 8, b: 9 });
+
+        for q in query {
+            uf.merge(q.a, q.b);
+        }
+
+        assert_eq!(uf.group_num(), 4);
+
+        assert_eq!(uf.leader(0), 0);
+        assert_eq!(uf.leader(1), 0);
+        assert_eq!(uf.leader(2), 0);
+        assert_eq!(uf.leader(3), 0);
+        assert_eq!(uf.leader(4), 4);
+        assert_eq!(uf.leader(5), 5);
+        assert_eq!(uf.leader(6), 4);
+        assert_eq!(uf.leader(7), 0);
+        assert_eq!(uf.leader(8), 8);
+        assert_eq!(uf.leader(9), 8);
+
+        assert_eq!(uf.is_same(0, 7), true);
+        assert_eq!(uf.is_same(4, 9), false);
+
+        let leader = uf.leader(3);
+        assert_eq!(uf.min_index(leader), 0);
+        let leader = uf.leader(5);
+        assert_eq!(uf.min_index(leader), 5);
+
+        let leader = uf.leader(3);
+        assert_eq!(uf.group_size(leader), 5);
+        let leader = uf.leader(5);
+        assert_eq!(uf.group_size(leader), 1);
     }
 }

@@ -1,7 +1,7 @@
 #![allow(non_snake_case, unused, dead_code)]
 
 struct Dsu {
-    parent_or_size: Vec<i64>, // 親のindex or 代表元のときはグループのサイズ(for 経路圧縮)
+    parent_or_size: Vec<i64>, // 親のindex or 親のときはグループのサイズを-1した値(for 経路圧縮)
     num_node: usize,
     num_group: usize,
 
@@ -36,6 +36,16 @@ impl Dsu {
             self.parent_or_size[index] = parent_index as i64;
             parent_index
         }
+    }
+
+    pub fn leader_vec(&self) -> Vec<usize> {
+        let mut leaders = Vec::new();
+        for (index, size_minus) in self.parent_or_size.iter().enumerate() {
+            if *size_minus < 0 {
+                leaders.push(index as usize);
+            }
+        }
+        leaders
     }
 
     pub fn merge(&mut self, a: usize, b: usize) -> usize {
@@ -139,6 +149,9 @@ mod tests {
         assert_eq!(uf.leader(7), 0);
         assert_eq!(uf.leader(8), 8);
         assert_eq!(uf.leader(9), 8);
+
+        assert_eq!(uf.leader_vec().len(), 4);
+        assert_eq!(uf.leader_vec(), [0,4,5,8]);
 
         assert_eq!(uf.is_same(0, 7), true);
         assert_eq!(uf.is_same(4, 9), false);

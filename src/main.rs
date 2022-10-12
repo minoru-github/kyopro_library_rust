@@ -1,59 +1,30 @@
 #![allow(non_snake_case, unused)]
-use num::{integer::Roots, Integer};
-use proconio::{input, marker::Chars};
+use itertools::Itertools;
+use num::{integer::Roots, Integer, ToPrimitive};
+use proconio::{
+    input,
+    marker::{Bytes, Chars},
+};
 use rand::prelude::*;
+use rand_pcg::Mcg128Xsl64;
 use std::{
-    collections::{BTreeMap, BTreeSet, BinaryHeap},
+    clone,
+    collections::{BTreeMap, BTreeSet, BinaryHeap, VecDeque},
     iter::FromIterator,
     ops::Range,
     ops::*,
-    time,
+    slice::SliceIndex,
 };
 use superslice::Ext;
-
-macro_rules! p {
-    ($x:expr) => {
-        println!("{}", $x);
-    };
-}
-
-macro_rules! p2 {
-    ($x:expr, $y:expr) => {
-        println!("{} {}", $x, $y);
-    };
-}
-
-macro_rules! d {
-    ($x:expr) => {
-        println! {"{:?}", $x};
-    };
-}
-
-fn chmin<T: PartialOrd>(a: &mut T, b: T) -> bool {
-    if *a > b {
-        *a = b;
-        true
-    } else {
-        false
-    }
-}
-
-fn chmax<T: PartialOrd>(a: &mut T, b: T) -> bool {
-    if *a < b {
-        *a = b;
-        true
-    } else {
-        false
-    }
-}
 
 fn main() {
     // a : 型
     // (a,b) : (型, 型)
     // a_vec : [型;サイズ]
     // a_vec2 : [[型;サイズ];サイズ]
-    // S : Chars
+    // S : [char; n] or Chars ← Vec<char>
+    // s_vec : [String; n]
+    // bytes : Bytes ← Vec<u8>
     input! {
-        N:usize,
     };
 }

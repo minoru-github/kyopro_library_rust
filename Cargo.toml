@@ -12,7 +12,6 @@ itertools = "0.10.3"
 num-integer = "0.1"
 superslice = "1.0.0"
 cargo-snippet = "0.6.5"
-plotters = "0.3.1"
 rand = { version = "=0.7.3", features = ["small_rng"] }
 getrandom = "=0.1.14"
 rand_chacha = "=0.2.2"

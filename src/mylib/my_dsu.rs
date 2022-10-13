@@ -20,7 +20,7 @@ impl Dsu {
             parent_or_size: vec![-1; n],
             num_node: n,
             num_group: n,
-            min_index: min_index,
+            min_index,
         }
     }
 
@@ -62,8 +62,8 @@ impl Dsu {
 
         // グループのサイズが大きいほうにマージする
         // 代表元のparent_or_sizeにはグループのサイズに-1した値が格納されている
-        let group_size_a = -1 * self.parent_or_size[leader_a];
-        let group_size_b = -1 * self.parent_or_size[leader_b];
+        let group_size_a = -self.parent_or_size[leader_a];
+        let group_size_b = -self.parent_or_size[leader_b];
         // aを基準にする
         if group_size_a < group_size_b {
             std::mem::swap(&mut leader_a, &mut leader_b);
@@ -87,17 +87,13 @@ impl Dsu {
         assert!(a < self.num_node);
         assert!(b < self.num_node);
 
-        if self.leader(a) == self.leader(b) {
-            true
-        } else {
-            false
-        }
+        self.leader(a) == self.leader(b)
     }
 
     pub fn group_size(&mut self, leader: usize) -> usize {
         assert!(leader < self.num_node);
 
-        (-1 * self.parent_or_size[leader]) as usize
+        (-self.parent_or_size[leader]) as usize
     }
 
     pub fn group_num(&mut self) -> usize {
@@ -151,7 +147,7 @@ mod tests {
         assert_eq!(uf.leader(9), 8);
 
         assert_eq!(uf.leader_vec().len(), 4);
-        assert_eq!(uf.leader_vec(), [0,4,5,8]);
+        assert_eq!(uf.leader_vec(), [0, 4, 5, 8]);
 
         assert_eq!(uf.is_same(0, 7), true);
         assert_eq!(uf.is_same(4, 9), false);

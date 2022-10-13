@@ -48,25 +48,30 @@ fn eratos(n: u64) -> Vec<u64> {
     //! n以下の素数列挙(エラトステネスの篩)
     //! O(N*sqrt(N))
     // 最初はすべてが素数候補
-    let mut is_prime = vec![true; n as usize + 1];
+    let mut is_prime_vec = vec![true; n as usize + 1];
     let last = n.sqrt() as usize;
     for i in 2..=last {
         // 素数の倍数を素数候補から外す
-        if is_prime[i] {
+        if is_prime_vec[i] {
             let mut j = 2;
             while i * j <= n as usize {
-                is_prime[i * j] = false;
+                is_prime_vec[i * j] = false;
                 j += 1;
             }
         }
     }
 
     let mut ans = Vec::new();
-    for i in 2..=(n as usize) {
-        if is_prime[i] {
-            ans.push(i as u64)
+    for (index, is_prime) in is_prime_vec.iter().enumerate().skip(2) {
+        if *is_prime {
+            ans.push(index as u64)
         }
     }
+    // for i in 2..=(n as usize) {
+    //     if is_prime_vec[i] {
+    //         ans.push(i as u64)
+    //     }
+    // }
 
     ans
 }

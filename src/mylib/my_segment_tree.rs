@@ -9,8 +9,8 @@ trait Monoid {
     fn op(a: Self::T, b: Self::T) -> Self::T;
 }
 
-struct SUM;
-impl Monoid for SUM {
+struct Sum;
+impl Monoid for Sum {
     type T = u64;
     fn e() -> Self::T {
         0
@@ -20,8 +20,8 @@ impl Monoid for SUM {
     }
 }
 
-struct MAX;
-impl Monoid for MAX {
+struct Max;
+impl Monoid for Max {
     type T = u64;
     fn e() -> Self::T {
         u64::min_value()
@@ -114,7 +114,7 @@ mod test {
     #[test]
     fn test_range_sum_at_odd_size() {
         let n = 5;
-        let mut st = SegmentTree::<SUM>::new(n);
+        let mut st = SegmentTree::<Sum>::new(n);
         let input = vec![1, 4, 2, 3, 5];
         for (idx, a) in input.iter().enumerate() {
             st.set(idx, *a);
@@ -141,7 +141,7 @@ mod test {
     #[test]
     fn test_range_sum_at_even_size() {
         let n = 6;
-        let mut st = SegmentTree::<SUM>::new(n);
+        let mut st = SegmentTree::<Sum>::new(n);
         let input = vec![1, 0, 2, 0, 5, 10];
         for (idx, a) in input.iter().enumerate() {
             st.set(idx, *a);
@@ -169,7 +169,7 @@ mod test {
     fn test_range_max() {
         let N = 10;
         let input = vec![1, 53, 2, 44, 102, 15, 8, 9, 0];
-        let mut st = SegmentTree::<MAX>::new(N);
+        let mut st = SegmentTree::<Max>::new(N);
         for (idx, x) in input.iter().enumerate() {
             st.set(idx, *x);
         }

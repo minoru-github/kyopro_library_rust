@@ -5,12 +5,12 @@ use cargo_snippet::snippet;
 fn binary_search(n: i64) -> i64 {
     //! 二分探索(めぐる式)
     let is_ok = |x: i64| -> bool {
-        // 満たすべき条件
-        if x >= (n * n + 2 * n) {
-            true
-        } else {
-            false
-        }
+        x >= (n * n + 2 * n)
+        // if 満たすべき条件 {
+        //     true
+        // } else {
+        //     false
+        // }
     };
 
     let mut ok = 1000i64; // 満たす中でのでかい数

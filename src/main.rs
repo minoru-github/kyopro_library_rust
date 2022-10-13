@@ -1,4 +1,4 @@
-#![allow(non_snake_case, unused)]
+#![allow(unused)]
 use itertools::Itertools;
 use num::{integer::Roots, Integer, ToPrimitive};
 use proconio::{
@@ -26,5 +26,6 @@ fn main() {
     // s_vec : [String; n]
     // bytes : Bytes ← Vec<u8>
     input! {
+
     };
 }

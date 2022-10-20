@@ -10,7 +10,7 @@ use std::{
     slice::SliceIndex,
 };
 
-// These crates can't be used in Paiza, but AtCoder.
+// These crates can't be used in Paiza, but in AtCoder.
 //use rand::prelude::*;
 //use rand_pcg::Mcg128Xsl64;
 //use itertools::Itertools;

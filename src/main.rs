@@ -16,7 +16,7 @@ use std::{
 use superslice::Ext;
 
 fn main() {
-
+    
 }
 
 mod procon_input {
@@ -165,5 +165,18 @@ mod procon_input {
             iter.next().unwrap().parse::<char>().unwrap(),
             iter.next().unwrap().parse::<char>().unwrap(),
         )
+    }
+
+    pub fn read_chars() -> Vec<char> {
+        let mut vec = Vec::new();
+        read::<String>()
+            .as_bytes()
+            .iter()
+            .for_each(|&b| vec.push(b as char));
+        vec
+    }
+
+    pub fn read_string() -> String {
+        read::<String>()
     }
 }

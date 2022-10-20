@@ -1,9 +1,5 @@
 #![allow(unused)]
-use itertools::Itertools;
-use num::{integer::Roots, Integer, ToPrimitive};
 use procon_input::*;
-use rand::prelude::*;
-use rand_pcg::Mcg128Xsl64;
 use std::{
     clone,
     cmp::Reverse,
@@ -13,9 +9,17 @@ use std::{
     ops::*,
     slice::SliceIndex,
 };
-use superslice::Ext;
 
-fn main() {}
+// These crates can't be used in Paiza, but AtCoder.
+//use rand::prelude::*;
+//use rand_pcg::Mcg128Xsl64;
+//use itertools::Itertools;
+//use num::{integer::Roots, Integer, ToPrimitive};
+//use superslice::Ext;
+
+fn main() {
+
+}
 
 mod procon_input {
     //! This input module is written with reference to MoSoon.
@@ -36,9 +40,9 @@ mod procon_input {
             .collect()
     }
 
-    pub fn read_mat<T: std::str::FromStr>(n: usize) -> Vec<Vec<T>> {
-        (0..n).map(|_| read_vec()).collect()
-    }
+    // pub fn read_mat<T: std::str::FromStr>(n: usize) -> Vec<Vec<T>> {
+    //     (0..n).map(|_| read_vec()).collect()
+    // }
 
     pub fn read_i() -> (i64) {
         let mut str = String::new();

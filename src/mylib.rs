@@ -1,5 +1,6 @@
 pub mod binary_search;
 pub mod chmin_chmax;
+pub mod mat;
 pub mod my_dsu;
 pub mod my_modint;
 pub mod my_segment_tree;

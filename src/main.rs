@@ -11,14 +11,18 @@ use std::{
 };
 
 // These crates can't be used in Paiza, but in AtCoder.
-//use rand::prelude::*;
-//use rand_pcg::Mcg128Xsl64;
-//use itertools::Itertools;
-//use num::{integer::Roots, Integer, ToPrimitive};
-//use superslice::Ext;
+// use rand::prelude::*;
+// use rand_pcg::Mcg128Xsl64;
+// use itertools::Itertools;
+// use num::{integer::Roots, Integer, ToPrimitive};
+// use proconio::{
+//     input,
+//     marker::{Bytes, Chars},
+// };
+// use superslice::Ext;
 
 fn main() {
-
+    
 }
 
 mod procon_input {

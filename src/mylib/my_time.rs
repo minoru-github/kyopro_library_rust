@@ -1,7 +1,6 @@
-#![allow(dead_code)]
+#![allow(dead_code, unused)]
 use cargo_snippet::snippet;
 
-#[snippet]
 fn update_time() -> f64 {
     static mut STARTING_TIME_MS: Option<f64> = None;
     let t = std::time::SystemTime::now()

@@ -5,8 +5,7 @@ use cargo_snippet::snippet;
 use itertools::Itertools;
 use num::{integer::Roots, Integer};
 
-#[snippet]
-fn is_prime(x: u64) -> bool {
+fn is_prime(x: usize) -> bool {
     //! 素数判定
     //! O(sqrt(N))
     if x < 2 {
@@ -17,12 +16,11 @@ fn is_prime(x: u64) -> bool {
     }
 }
 
-#[snippet]
-fn prime_factorization(mut x: u64) -> Vec<(u64, u64)> {
+fn prime_factorization(mut x: usize) -> Vec<(usize, usize)> {
     //! 素因数分解
     assert!(x != 0);
 
-    let mut ret: Vec<(u64, u64)> = Vec::new();
+    let mut ret: Vec<(usize, usize)> = Vec::new();
     let last = x.sqrt();
     for n in 2..=last {
         if x % n != 0 {
@@ -43,8 +41,7 @@ fn prime_factorization(mut x: u64) -> Vec<(u64, u64)> {
     ret
 }
 
-#[snippet]
-fn eratos(n: u64) -> Vec<u64> {
+fn eratos(n: usize) -> Vec<usize> {
     //! n以下の素数列挙(エラトステネスの篩)
     //! O(N*sqrt(N))
     // 最初はすべてが素数候補
@@ -64,20 +61,14 @@ fn eratos(n: u64) -> Vec<u64> {
     let mut ans = Vec::new();
     for (index, is_prime) in is_prime_vec.iter().enumerate().skip(2) {
         if *is_prime {
-            ans.push(index as u64)
+            ans.push(index as usize)
         }
     }
-    // for i in 2..=(n as usize) {
-    //     if is_prime_vec[i] {
-    //         ans.push(i as u64)
-    //     }
-    // }
 
     ans
 }
 
-#[snippet]
-fn enumerate_divisors(n: u64) -> Vec<u64> {
+fn enumerate_divisors(n: usize) -> Vec<usize> {
     //! 約数列挙
     let mut ans = Vec::new();
     let last = n.sqrt();
@@ -95,8 +86,7 @@ fn enumerate_divisors(n: u64) -> Vec<u64> {
     ans
 }
 
-#[snippet]
-fn count_digits(mut n: u64) -> u64 {
+fn count_digits(mut n: usize) -> usize {
     //! 引数nの桁数を数える
     let mut ans = 1;
     while n > 0 {

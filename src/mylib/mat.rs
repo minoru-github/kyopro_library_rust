@@ -1,26 +1,5 @@
 use std::ops::*;
 
-type Value = usize; // 適宜変える
-#[derive(Debug, Clone)]
-pub struct Mat {
-    data: Vec<Vec<Value>>,
-}
-
-impl Mat {
-    pub fn new(n: usize) -> Self {
-        let data = vec![vec![0; n]; n];
-        Mat { data }
-    }
-
-    pub fn set(&mut self, p: &Point, value: Value) {
-        self.data[p.y][p.x] = value;
-    }
-
-    pub fn get(&self, p: &Point) -> Value {
-        self.data[p.y][p.x]
-    }
-}
-
 static mut WIDTH: Option<usize> = None;
 
 #[derive(Debug, Clone, PartialEq, Eq, Copy)]
@@ -38,6 +17,22 @@ impl Point {
         unsafe {
             WIDTH = Some(width);
         }
+    }
+}
+
+type Value = usize; // 適宜変える
+pub trait Mat {
+    fn set(&mut self, p: &Point, value: Value);
+    fn get(&self, p: &Point) -> Value;
+}
+
+impl Mat for Vec<Vec<Value>> {
+    fn set(&mut self, p: &Point, value: Value) {
+        self[p.y][p.x] = value;
+    }
+
+    fn get(&self, p: &Point) -> Value {
+        self[p.y][p.x]
     }
 }
 
@@ -89,33 +84,18 @@ where
     }
 }
 
-impl Swap<Point> for Mat {
-    fn swap(&mut self, p1: Point, p2: Point) {
-        let tmp = self.data[p1.y][p1.x];
-        self.data[p1.y][p1.x] = self.data[p2.y][p2.x];
-        self.data[p2.y][p2.x] = tmp;
-    }
-}
-
-impl Swap<&Point> for Mat {
-    fn swap(&mut self, p1: &Point, p2: &Point) {
-        let tmp = self.data[p1.y][p1.x];
-        self.data[p1.y][p1.x] = self.data[p2.y][p2.x];
-        self.data[p2.y][p2.x] = tmp;
-    }
-}
-
 #[cfg(test)]
 mod test {
     use super::*;
 
     #[test]
     fn test_mat() {
-        let mut mat = Mat::new(4);
-        for y in 0..4 {
-            for x in 0..4 {
+        let n = 4;
+        let mut mat = vec![vec![0; n]; n];
+        for y in 0..n {
+            for x in 0..n {
                 let p = Point::new(x, y);
-                mat.set(&p, 4 * y + x);
+                mat.set(&p, n * y + x);
             }
         }
         let p1 = Point::new(0, 0);

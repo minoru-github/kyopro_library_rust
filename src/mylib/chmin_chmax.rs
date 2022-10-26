@@ -1,25 +1,33 @@
-#![allow(dead_code)]
+#![allow(dead_code, unused)]
 use cargo_snippet::snippet;
 
-#[snippet]
-fn chmin<T: PartialOrd>(a: &mut T, b: T) -> bool {
-    if *a > b {
-        *a = b;
-        true
-    } else {
-        false
+trait ChangeMinMax {
+    fn chmin(&mut self, rhs: Self) -> bool
+    where
+        Self: PartialOrd<Self> + Copy,
+    {
+        if *self > rhs {
+            *self = rhs;
+            true
+        } else {
+            false
+        }
+    }
+
+    fn chmax(&mut self, rhs: Self) -> bool
+    where
+        Self: PartialOrd<Self> + Copy,
+    {
+        if *self < rhs {
+            *self = rhs;
+            true
+        } else {
+            false
+        }
     }
 }
 
-#[snippet]
-fn chmax<T: PartialOrd>(a: &mut T, b: T) -> bool {
-    if *a < b {
-        *a = b;
-        true
-    } else {
-        false
-    }
-}
+impl<T> ChangeMinMax for T {}
 
 #[cfg(test)]
 mod test {
@@ -28,22 +36,22 @@ mod test {
     #[test]
     fn test_chmin() {
         let mut a = 3;
-        assert_eq!(chmin(&mut a, 1), true);
+        assert_eq!(a.chmin(1), true);
         assert_eq!(a, 1);
 
         let mut a = 3;
-        assert_eq!(chmin(&mut a, 5), false);
+        assert_eq!(a.chmin(5), false);
         assert_eq!(a, 3);
     }
 
     #[test]
     fn test_chmax() {
         let mut a = 3;
-        assert_eq!(chmax(&mut a, 4), true);
+        assert_eq!(a.chmax(4), true);
         assert_eq!(a, 4);
 
         let mut a = 3;
-        assert_eq!(chmax(&mut a, 1), false);
+        assert_eq!(a.chmax(1), false);
         assert_eq!(a, 3);
     }
 }

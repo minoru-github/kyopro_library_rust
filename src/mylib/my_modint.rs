@@ -9,17 +9,28 @@ use std::ops::*;
 // (なんかの処理)
 // type Mint = Modint<998244353>;
 
-const MODULO: usize = 998244353;
-//const MODULO:usize = 1000000007;
 #[derive(Copy, Clone, PartialEq, Eq)]
 struct Modint {
     val: usize,
 }
 
+impl Modint {
+    const MODULO: usize = 998244353;
+    //const MODULO:usize = 1000000007;
+
+    pub fn new(n: usize) -> Self {
+        Self { val: n % Self::MODULO }
+    }
+
+    pub fn val(&self) -> usize {
+        self.val % Self::MODULO
+    }
+}
+
 impl Add for Modint {
     type Output = Modint;
     fn add(self, other: Self) -> Self::Output {
-        let add_val = (self.val + other.val) % MODULO;
+        let add_val = (self.val + other.val) % Self::MODULO;
         Self::Output { val: add_val }
     }
 }
@@ -27,7 +38,7 @@ impl Add for Modint {
 impl AddAssign for Modint {
     fn add_assign(&mut self, other: Self) {
         self.val = self.val + other.val;
-        self.val %= MODULO;
+        self.val %= Self::MODULO;
     }
 }
 
@@ -36,9 +47,9 @@ impl Sub for Modint {
     fn sub(self, other: Self) -> Self::Output {
         let mut self_val = self.val;
         if self_val < other.val {
-            self_val += MODULO;
+            self_val += Self::MODULO;
         }
-        let sub_val = (self_val - other.val) % MODULO;
+        let sub_val = (self_val - other.val) % Self::MODULO;
         Self::Output { val: sub_val }
     }
 }
@@ -46,7 +57,7 @@ impl Sub for Modint {
 impl SubAssign for Modint {
     fn sub_assign(&mut self, other: Self) {
         if self.val < other.val {
-            self.val += MODULO;
+            self.val += Self::MODULO;
         }
         self.val = self.val - other.val;
     }
@@ -55,7 +66,7 @@ impl SubAssign for Modint {
 impl Mul for Modint {
     type Output = Modint;
     fn mul(self, other: Self) -> Self::Output {
-        let mul_val = (self.val * other.val) % MODULO;
+        let mul_val = (self.val * other.val) % Self::MODULO;
         Self::Output { val: mul_val }
     }
 }
@@ -63,17 +74,7 @@ impl Mul for Modint {
 impl MulAssign for Modint {
     fn mul_assign(&mut self, other: Self) {
         self.val = self.val * other.val;
-        self.val %= MODULO;
-    }
-}
-
-impl Modint {
-    pub fn new(n: usize) -> Self {
-        Self { val: n % MODULO }
-    }
-
-    pub fn val(&self) -> usize {
-        self.val % MODULO
+        self.val %= Self::MODULO;
     }
 }
 

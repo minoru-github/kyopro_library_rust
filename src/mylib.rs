@@ -6,4 +6,4 @@ pub mod my_modint;
 pub mod my_segment_tree;
 pub mod my_string;
 pub mod my_time;
-pub mod numbers;
+pub mod my_num;

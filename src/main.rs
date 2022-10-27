@@ -1,4 +1,5 @@
 #![allow(unused)]
+use my_lib::*;
 use procon_input::*;
 use std::{
     clone,
@@ -217,22 +218,42 @@ mod procon_input {
         vec
     }
 
-    pub fn read_string() -> String {
-        read::<String>()
-    }
+    // pub fn read_string() -> String {
+    //     read::<String>()
+    // }
 }
 
-trait SortFloat {
-    //! 浮動小数点としてNANが含まれないことを約束されている場合のsort処理
-    fn sort(&mut self);
-    fn sort_rev(&mut self);
-}
-
-impl SortFloat for Vec<f64> {
-    fn sort(&mut self) {
-        self.sort_by(|a, b| a.partial_cmp(b).unwrap());
+mod my_lib {
+    pub trait SortFloat {
+        fn sort(&mut self);
+        fn sort_rev(&mut self);
     }
-    fn sort_rev(&mut self) {
-        self.sort_by(|a, b| b.partial_cmp(a).unwrap());
+
+    impl SortFloat for Vec<f64> {
+        fn sort(&mut self) {
+            //! 浮動小数点としてNANが含まれないことを約束されている場合のsort処理<br>
+            //! 小さい順
+            self.sort_by(|a, b| a.partial_cmp(b).unwrap());
+        }
+        fn sort_rev(&mut self) {
+            //! 浮動小数点としてNANが含まれないことを約束されている場合のsort処理<br>  
+            //! 大きい順
+            self.sort_by(|a, b| b.partial_cmp(a).unwrap());
+        }
+    }
+
+    pub trait EvenOdd {
+        fn is_even(&self) -> bool;
+        fn is_odd(&self) -> bool;
+    }
+
+    impl EvenOdd for usize {
+        fn is_even(&self) -> bool {
+            self % 2 == 0
+        }
+
+        fn is_odd(&self) -> bool {
+            self % 2 != 0
+        }
     }
 }

@@ -1,38 +1,46 @@
 use std::ops::*;
 
-static mut WIDTH: Option<usize> = None;
-
-#[derive(Debug, Clone, PartialEq, Eq, Copy)]
-pub struct Point {
-    pub x: usize, // →
-    pub y: usize, // ↑
+pub trait Mat<S, T> {
+    fn set(&mut self, p: S, value: T);
+    fn get(&self, p: S) -> T;
+    fn swap(&mut self, p1: S, p2: S);
 }
 
-impl Point {
-    pub fn new(x: usize, y: usize) -> Self {
-        Point { x, y }
-    }
-
-    pub fn set_width(width: usize) {
-        unsafe {
-            WIDTH = Some(width);
-        }
-    }
-}
-
-type Value = usize; // 適宜変える
-pub trait Mat {
-    fn set(&mut self, p: &Point, value: Value);
-    fn get(&self, p: &Point) -> Value;
-}
-
-impl Mat for Vec<Vec<Value>> {
-    fn set(&mut self, p: &Point, value: Value) {
+impl<T> Mat<&Point, T> for Vec<Vec<T>>
+where
+    T: Copy,
+{
+    fn set(&mut self, p: &Point, value: T) {
         self[p.y][p.x] = value;
     }
 
-    fn get(&self, p: &Point) -> Value {
+    fn get(&self, p: &Point) -> T {
         self[p.y][p.x]
+    }
+
+    fn swap(&mut self, p1: &Point, p2: &Point) {
+        let tmp = self[p1.y][p1.x];
+        self[p1.y][p1.x] = self[p2.y][p2.x];
+        self[p2.y][p2.x] = tmp;
+    }
+}
+
+impl<T> Mat<Point, T> for Vec<Vec<T>>
+where
+    T: Copy,
+{
+    fn set(&mut self, p: Point, value: T) {
+        self[p.y][p.x] = value;
+    }
+
+    fn get(&self, p: Point) -> T {
+        self[p.y][p.x]
+    }
+
+    fn swap(&mut self, p1: Point, p2: Point) {
+        let tmp = self[p1.y][p1.x];
+        self[p1.y][p1.x] = self[p2.y][p2.x];
+        self[p2.y][p2.x] = tmp;
     }
 }
 
@@ -58,29 +66,23 @@ impl Add for Point {
     }
 }
 
-pub trait Swap<T> {
-    fn swap(&mut self, p1: T, p2: T);
+static mut WIDTH: Option<usize> = None;
+
+#[derive(Debug, Clone, PartialEq, Eq, Copy)]
+pub struct Point {
+    pub x: usize, // →
+    pub y: usize, // ↑
 }
 
-impl<T> Swap<Point> for Vec<Vec<T>>
-where
-    T: Copy,
-{
-    fn swap(&mut self, p1: Point, p2: Point) {
-        let tmp = self[p1.y][p1.x];
-        self[p1.y][p1.x] = self[p2.y][p2.x];
-        self[p2.y][p2.x] = tmp;
+impl Point {
+    pub fn new(x: usize, y: usize) -> Self {
+        Point { x, y }
     }
-}
 
-impl<T> Swap<&Point> for Vec<Vec<T>>
-where
-    T: Copy,
-{
-    fn swap(&mut self, p1: &Point, p2: &Point) {
-        let tmp = self[p1.y][p1.x];
-        self[p1.y][p1.x] = self[p2.y][p2.x];
-        self[p2.y][p2.x] = tmp;
+    pub fn set_width(width: usize) {
+        unsafe {
+            WIDTH = Some(width);
+        }
     }
 }
 

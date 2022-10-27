@@ -1,5 +1,6 @@
 pub mod binary_search;
 pub mod chmin_chmax;
+pub mod my_converter;
 pub mod my_dsu;
 pub mod my_mat;
 pub mod my_modint;

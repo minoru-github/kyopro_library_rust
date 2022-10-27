@@ -221,3 +221,18 @@ mod procon_input {
         read::<String>()
     }
 }
+
+trait SortFloat {
+    //! 浮動小数点としてNANが含まれないことを約束されている場合のsort処理
+    fn sort(&mut self);
+    fn sort_rev(&mut self);
+}
+
+impl SortFloat for Vec<f64> {
+    fn sort(&mut self) {
+        self.sort_by(|a, b| a.partial_cmp(b).unwrap());
+    }
+    fn sort_rev(&mut self) {
+        self.sort_by(|a, b| b.partial_cmp(a).unwrap());
+    }
+}

@@ -22,9 +22,7 @@ use std::{
 // };
 // use superslice::Ext;
 
-fn main() {
-    
-}
+fn main() {}
 
 mod procon_input {
     //! This input module is written with reference to MoSoon.
@@ -254,6 +252,22 @@ mod my_lib {
 
         fn is_odd(&self) -> bool {
             self % 2 != 0
+        }
+    }
+
+    pub fn gcd(mut a: usize, mut b: usize) -> usize {
+        while b != 0 {
+            a %= b;
+            std::mem::swap(&mut a, &mut b);
+        }
+        a
+    }
+
+    pub fn lcm(a: usize, b: usize) -> usize {
+        if a == 0 && b == 0 {
+            0
+        } else {
+            a / gcd(a, b) * b
         }
     }
 }

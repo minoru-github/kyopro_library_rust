@@ -24,7 +24,11 @@ mod test {
     fn test_gcd() {
         let a = 630;
         let b = 300;
-        assert_eq!(gcd(630, 300), 30);
+        assert_eq!(gcd(a, b), 30);
+
+        let a = 300;
+        let b = 630;
+        assert_eq!(gcd(a, b), 30);
 
         let a = 17;
         let b = 13;
@@ -35,7 +39,11 @@ mod test {
     fn test_lcm() {
         let a = 630;
         let b = 300;
-        assert_eq!(lcm(630, 300), 6300);
+        assert_eq!(lcm(a, b), 6300);
+
+        let a = 300;
+        let b = 630;
+        assert_eq!(lcm(a, b), 6300);
 
         let a = 17;
         let b = 13;

@@ -17,12 +17,14 @@ use std::{
 // use itertools::Itertools;
 // use num::{integer::Roots, Integer, ToPrimitive};
 // use proconio::{
-//     input,
+//     fastout, input,
 //     marker::{Bytes, Chars},
 // };
 // use superslice::Ext;
 
-fn main() {}
+fn main() {
+    
+}
 
 mod procon_input {
     //! This input module is written with reference to MoSoon.
@@ -75,18 +77,6 @@ mod procon_input {
         )
     }
 
-    pub fn read_iiii() -> (i64, i64, i64, i64) {
-        let mut str = String::new();
-        let _ = stdin().read_line(&mut str).unwrap();
-        let mut iter = str.split_whitespace();
-        (
-            iter.next().unwrap().parse::<i64>().unwrap(),
-            iter.next().unwrap().parse::<i64>().unwrap(),
-            iter.next().unwrap().parse::<i64>().unwrap(),
-            iter.next().unwrap().parse::<i64>().unwrap(),
-        )
-    }
-
     pub fn read_u() -> (usize) {
         let mut str = String::new();
         let _ = stdin().read_line(&mut str).unwrap();
@@ -115,16 +105,11 @@ mod procon_input {
         )
     }
 
-    pub fn read_uuuu() -> (usize, usize, usize, usize) {
-        let mut str = String::new();
-        let _ = stdin().read_line(&mut str).unwrap();
-        let mut iter = str.split_whitespace();
-        (
-            iter.next().unwrap().parse::<usize>().unwrap(),
-            iter.next().unwrap().parse::<usize>().unwrap(),
-            iter.next().unwrap().parse::<usize>().unwrap(),
-            iter.next().unwrap().parse::<usize>().unwrap(),
-        )
+    pub fn read_u_vec<T: std::str::FromStr>() -> Vec<usize> {
+        read::<String>()
+            .split_whitespace()
+            .map(|e| e.parse().ok().unwrap())
+            .collect()
     }
 
     pub fn read_f() -> (f64) {
@@ -144,29 +129,6 @@ mod procon_input {
         )
     }
 
-    pub fn read_fff() -> (f64, f64, f64) {
-        let mut str = String::new();
-        let _ = stdin().read_line(&mut str).unwrap();
-        let mut iter = str.split_whitespace();
-        (
-            iter.next().unwrap().parse::<f64>().unwrap(),
-            iter.next().unwrap().parse::<f64>().unwrap(),
-            iter.next().unwrap().parse::<f64>().unwrap(),
-        )
-    }
-
-    pub fn read_ffff() -> (f64, f64, f64, f64) {
-        let mut str = String::new();
-        let _ = stdin().read_line(&mut str).unwrap();
-        let mut iter = str.split_whitespace();
-        (
-            iter.next().unwrap().parse::<f64>().unwrap(),
-            iter.next().unwrap().parse::<f64>().unwrap(),
-            iter.next().unwrap().parse::<f64>().unwrap(),
-            iter.next().unwrap().parse::<f64>().unwrap(),
-        )
-    }
-
     pub fn read_c() -> (char) {
         let mut str = String::new();
         let _ = stdin().read_line(&mut str).unwrap();
@@ -179,29 +141,6 @@ mod procon_input {
         let _ = stdin().read_line(&mut str).unwrap();
         let mut iter = str.split_whitespace();
         (
-            iter.next().unwrap().parse::<char>().unwrap(),
-            iter.next().unwrap().parse::<char>().unwrap(),
-        )
-    }
-
-    pub fn read_ccc() -> (char, char, char) {
-        let mut str = String::new();
-        let _ = stdin().read_line(&mut str).unwrap();
-        let mut iter = str.split_whitespace();
-        (
-            iter.next().unwrap().parse::<char>().unwrap(),
-            iter.next().unwrap().parse::<char>().unwrap(),
-            iter.next().unwrap().parse::<char>().unwrap(),
-        )
-    }
-
-    pub fn read_cccc() -> (char, char, char, char) {
-        let mut str = String::new();
-        let _ = stdin().read_line(&mut str).unwrap();
-        let mut iter = str.split_whitespace();
-        (
-            iter.next().unwrap().parse::<char>().unwrap(),
-            iter.next().unwrap().parse::<char>().unwrap(),
             iter.next().unwrap().parse::<char>().unwrap(),
             iter.next().unwrap().parse::<char>().unwrap(),
         )
@@ -252,22 +191,6 @@ mod my_lib {
 
         fn is_odd(&self) -> bool {
             self % 2 != 0
-        }
-    }
-
-    pub fn gcd(mut a: usize, mut b: usize) -> usize {
-        while b != 0 {
-            a %= b;
-            std::mem::swap(&mut a, &mut b);
-        }
-        a
-    }
-
-    pub fn lcm(a: usize, b: usize) -> usize {
-        if a == 0 && b == 0 {
-            0
-        } else {
-            a / gcd(a, b) * b
         }
     }
 }

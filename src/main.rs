@@ -77,6 +77,18 @@ mod procon_input {
         )
     }
 
+    pub fn read_iiii() -> (i64, i64, i64, i64) {
+        let mut str = String::new();
+        let _ = stdin().read_line(&mut str).unwrap();
+        let mut iter = str.split_whitespace();
+        (
+            iter.next().unwrap().parse::<i64>().unwrap(),
+            iter.next().unwrap().parse::<i64>().unwrap(),
+            iter.next().unwrap().parse::<i64>().unwrap(),
+            iter.next().unwrap().parse::<i64>().unwrap(),
+        )
+    }
+
     pub fn read_u() -> (usize) {
         let mut str = String::new();
         let _ = stdin().read_line(&mut str).unwrap();
@@ -105,7 +117,19 @@ mod procon_input {
         )
     }
 
-    pub fn read_u_vec<T: std::str::FromStr>() -> Vec<usize> {
+    pub fn read_uuuu() -> (usize, usize, usize, usize) {
+        let mut str = String::new();
+        let _ = stdin().read_line(&mut str).unwrap();
+        let mut iter = str.split_whitespace();
+        (
+            iter.next().unwrap().parse::<usize>().unwrap(),
+            iter.next().unwrap().parse::<usize>().unwrap(),
+            iter.next().unwrap().parse::<usize>().unwrap(),
+            iter.next().unwrap().parse::<usize>().unwrap(),
+        )
+    }
+
+    pub fn read_u_vec() -> Vec<usize> {
         read::<String>()
             .split_whitespace()
             .map(|e| e.parse().ok().unwrap())
@@ -193,4 +217,6 @@ mod my_lib {
             self % 2 != 0
         }
     }
+
+    pub const DXY: [(i64, i64); 4] = [(0, 1), (1, 0), (0, -1), (-1, 0)];
 }

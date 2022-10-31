@@ -6,7 +6,6 @@ use std::{
     cmp::Reverse,
     collections::{BTreeMap, BTreeSet, BinaryHeap, VecDeque},
     iter::FromIterator,
-    ops::Range,
     ops::*,
     slice::SliceIndex,
 };
@@ -123,7 +122,9 @@ mod procon_input {
     fn read_line() -> String {
         let mut s = String::new();
         stdin().read_line(&mut s).expect("can't read.");
-        s.trim().parse().ok().unwrap()
+        s.trim()
+            .parse()
+            .unwrap_or_else(|_| panic!("can't trim in read_line()"))
     }
 
     pub fn read_vec<T: std::str::FromStr>() -> Vec<T> {
@@ -176,13 +177,8 @@ mod procon_input {
             .collect()
     }
 
-    pub fn read_chars() -> Vec<char> {
-        let mut vec = Vec::new();
-        read_line()
-            .as_bytes()
-            .iter()
-            .for_each(|&b| vec.push(b as char));
-        vec
+    pub fn read_str_as_chars() -> Vec<char> {
+        read_line().as_bytes().iter().map(|&b| b as char).collect()
     }
 }
 

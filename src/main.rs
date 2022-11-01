@@ -2,11 +2,13 @@
 use my_lib::*;
 use procon_input::*;
 use std::{
+    //cell::RefCell,
     clone,
     cmp::Reverse,
     collections::{BTreeMap, BTreeSet, BinaryHeap, VecDeque},
     iter::FromIterator,
     ops::*,
+    //rc::Rc,
     slice::SliceIndex,
 };
 
@@ -177,8 +179,12 @@ mod procon_input {
             .collect()
     }
 
-    pub fn read_str_as_chars() -> Vec<char> {
+    pub fn read_line_as_chars() -> Vec<char> {
         read_line().as_bytes().iter().map(|&b| b as char).collect()
+    }
+
+    pub fn read_string() -> String {
+        read_block()
     }
 }
 

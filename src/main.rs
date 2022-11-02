@@ -4,7 +4,6 @@ use procon_input::*;
 use std::{
     cell::RefCell,
     clone,
-    cmp::Reverse,
     collections::{BTreeMap, BTreeSet, BinaryHeap, VecDeque},
     iter::FromIterator,
     ops::*,
@@ -23,7 +22,9 @@ use std::{
 // };
 // use superslice::Ext;
 
-fn main() {}
+fn main() {
+    
+}
 
 mod procon_input {
     use std::{any::type_name, io::*};

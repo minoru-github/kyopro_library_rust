@@ -10,3 +10,4 @@ pub mod my_segment_tree;
 pub mod my_sort;
 pub mod my_string;
 pub mod my_time;
+pub mod next_permutation;

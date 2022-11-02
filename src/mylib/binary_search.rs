@@ -42,3 +42,26 @@ mod test {
         assert_eq!(binary_search(22), 528);
     }
 }
+
+
+// example
+mod ex1 {
+    // scores[]の中で、score >= scores[index]となる最小のindexを探す。
+    // lower bound
+    fn binary_search(score: usize, scores: &Vec<usize>) -> usize {
+    //! 二分探索(めぐる式)
+    let is_ok = |index: usize| -> bool { score >= scores[index] };
+
+    let mut ok = scores.len() as i64 - 1; // 満たす中での絶対値が大きい数
+    let mut ng = -1; // ギリギリ満たさない数
+    while (ok - ng).abs() > 1 {
+        let mid = (ok + ng) / 2;
+        if is_ok(mid as usize) {
+            ok = mid;
+        } else {
+            ng = mid;
+        }
+    }
+    ok as usize
+}
+}

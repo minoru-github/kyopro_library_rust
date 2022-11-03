@@ -1,0 +1,165 @@
+{
+	// Example:
+	// "Print to console": {
+	// 	"scope": "javascript,typescript",
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+	"input n": {
+		"prefix": "nin",
+		"body": "let n = read_u();",
+	},
+	"input m": {
+		"prefix": "min",
+		"body": "let m = read_u();",
+	},
+	"input n, m": {
+		"prefix": "nmin",
+		"body": "let (n, m) = read_uu();",
+	},
+	"input a": {
+		"prefix": "ain",
+		"body": "let a = read_u();",
+	},
+	"input b": {
+		"prefix": "bin",
+		"body": "let b = read_u();",
+	},
+	"input a, b": {
+		"prefix": "abin",
+		"body": "let (a, b) = read_uu();",
+	},
+	"input x": {
+		"prefix": "xin",
+		"body": "let x = read_u();",
+	},
+	"input y": {
+		"prefix": "yin",
+		"body": "let y = read_u();",
+	},
+	"input x, y": {
+		"prefix": "xyin",
+		"body": "let (x, y) = read_uu();",
+	},
+	"input h, w": {
+		"prefix": "hwin",
+		"body": "let (h, w) = read_uu();",
+	},
+	"input String": {
+		"prefix": "sin",
+		"body": "let s = read_string();",
+	},
+	"yes": {
+		"prefix": "yes",
+		"body": "println!(\"Yes\");",
+	},
+	"no": {
+		"prefix": "no",
+		"body": "println!(\"No\");",
+	},
+	"print!": {
+		"prefix": "p",
+		"body": "print!(\"{}\", $1);",
+	},
+	"println!": {
+		"prefix": "pn",
+		"body": "println!(\"{}\", $1);",
+	},
+	"println! 2": {
+		"prefix": "pn2",
+		"body": "println!(\"{} {}\", $1, $2);",
+	},
+	"eprintln!": {
+		"prefix": "en",
+		"body": "eprintln!(\"{:?} \", $1);",
+	},
+	"eprintln! 2": {
+		"prefix": "en2",
+		"body": "eprintln!(\"{:?} {:?}\", $1, $2);",
+	},
+	"eprintln! 3": {
+		"prefix": "en3",
+		"body": "eprintln!(\"{:?} {:?} {:?}\", $1, $2, $3);",
+	},
+	"dfs": {
+		"prefix": "dfs",
+		"body": [
+			"let mut graph: Graph = vec![vec![]; n];",
+			"let mut has_seen = vec![false; n];",
+			"type Graph = Vec<Vec<usize>>;",
+			"fn dfs(cur: usize, graph: &Graph, has_seen: &mut Vec<bool>) {",
+			"    // 行きがけ順はここで何か処理",
+			"",
+			"    has_seen[cur] = true;",
+			"    let childs = graph.get(cur).unwrap();",
+			"    for &child in childs {",
+			"        if has_seen[child] {",
+			"            continue;",
+			"        }",
+			"        dfs(child, graph, has_seen);",
+			"    }",
+			"    // 帰りがけ順はここで何か処理",
+			"}",
+		],
+	},
+	"bfs": {
+		"prefix": "bfs",
+		"body": [
+			"const DXY: [(i64, i64); 4] = [(0, 1), (1, 0), (0, -1), (-1, 0)];",
+			"let mut dist = vec![vec![usize::MAX - 1; w]; h];",
+			"let mut seen = vec![vec![false; w]; h];",
+			"",
+			"let mut q = VecDeque::new();",
+			"q.push_back((x0, y0));",
+			"dist[x0][y0] = 0;",
+			"",
+			"while !q.is_empty() {",
+			"    let (x, y) = q.pop_front().unwrap();",
+			"",
+			"    for (dx, dy) in DXY.iter() {",
+			"        let x_next = x as i64 + dx;",
+			"        let y_next = y as i64 + dy;",
+			"",
+			"        if x_next < 0 || h as i64 <= x_next {",
+			"            continue;",
+			"        }",
+			"        if y_next < 0 || w as i64 <= y_next {",
+			"            continue;",
+			"        }",
+			"",
+			"        let x_next = x_next as usize;",
+			"        let y_next = y_next as usize;",
+			"        if seen[x_next][y_next] {",
+			"            continue;",
+			"        }",
+			"",
+			"        seen[x_next][y_next] = true;",
+			"        if map[x_next][y_next] == 'W' {",
+			"            q.push_back((x_next, y_next));",
+			"            dist[x_next][y_next] = dist[x_next][y_next].min(dist[x][y] + 1);",
+			"        }",
+			"    }",
+			"}",
+		],
+	},
+	"read_vec": {
+		"prefix": "vin",
+		"body": [
+			"let vec = read_vec::<$1>();",
+		],
+	},
+	"read_u_vec": {
+		"prefix": "uvin",
+		"body": [
+			"let vec = read_u_vec();",
+		],
+	},
+	// "": {
+	// 	"prefix": "",
+	// 	"body": "",
+	// },
+}

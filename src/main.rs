@@ -4,12 +4,12 @@ use procon_input::*;
 use std::{
     cell::RefCell,
     clone,
+    cmp::{max, min},
     collections::{BTreeMap, BTreeSet, BinaryHeap, VecDeque},
     iter::FromIterator,
     ops::*,
     rc::Rc,
     slice::SliceIndex,
-    cmp::{min,max}
 };
 
 // These crates can't be used in Paiza, but in AtCoder.
@@ -219,6 +219,30 @@ mod my_lib {
 
         fn is_odd(&self) -> bool {
             self % 2 != 0
+        }
+    }
+
+    pub fn pow_mod(a: usize, b: usize, p: usize) -> usize {
+        //! O(log(b))
+        if b == 0 {
+            1
+        } else if b.is_even() {
+            let d = pow_mod(a, b / 2, p);
+            (d * d) % p
+        } else {
+            (a * pow_mod(a, b - 1, p)) % p
+        }
+    }
+
+    pub fn pow_non_mod(a: usize, b: usize) -> usize {
+        //! O(log(b))
+        if b == 0 {
+            1
+        } else if b.is_even() {
+            let d = pow_non_mod(a, b / 2);
+            (d * d)
+        } else {
+            (a * pow_non_mod(a, b - 1))
         }
     }
 

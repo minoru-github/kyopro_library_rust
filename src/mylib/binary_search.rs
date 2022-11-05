@@ -1,41 +1,36 @@
 #![allow(dead_code)]
 
-fn binary_search(n: i64) -> i64 {
-    //! 二分探索(めぐる式)
-    let is_ok = |x: i64| -> bool {
-        // (n * n + 2 * n)以上の最小値を探す
-        x >= (n * n + 2 * n)
+fn binary_search(target: usize, vec: &Vec<usize>) -> usize {
+    // vec[]の中で、vec[index] < targetとなる最大のindexを探す。
+    let is_ok = |index: usize| -> bool { vec[index] < target };
+    let mut ok = 0; // 満たす中でとりうる値の限界
+    let mut ng = vec.len() as i64; // ギリギリ満たさない数
 
-        // n以上の最小値を探す。ok は大きい数、ngは小さい数にする。
-        // x >= n
-
-        // n未満の最小値を探す。ok は小さい数、ngは大きい数にする。
-        //x < n
-    };
-
-    let mut ok = 1000i64; // 満たす中での絶対値が大きい数
-    let mut ng = -1; // ギリギリ満たさない数
     while (ok - ng).abs() > 1 {
         let mid = (ok + ng) / 2;
-        if is_ok(mid) {
+        if is_ok(mid as usize) {
             ok = mid;
         } else {
             ng = mid;
         }
     }
-    ok
+    ok as usize
 }
 
 #[cfg(test)]
 mod test {
     #[test]
-    fn test_lower_bound() {
-        fn binary_search(value: i64) -> i64 {
-            // (n * n + 2 * n)以上の最小値を探す
-            let is_ok = |x: i64| -> bool { x >= (value * value + 2 * value) };
+    fn test_func() {
+        fn func(val: i64) -> i64 {
+            val * val + 2 * val
+        }
 
-            let mut ok = 1000i64; // 満たす中での絶対値が大きい数
+        fn binary_search(target: i64) -> i64 {
+            // func(target)以上の最小値を探す
+            let is_ok = |x: i64| -> bool { x >= func(target) };
+            let mut ok = 1000i64; // 満たす中でとりうる値の限界
             let mut ng = -1; // ギリギリ満たさない数
+
             while (ok - ng).abs() > 1 {
                 let mid = (ok + ng) / 2;
                 if is_ok(mid) {
@@ -52,13 +47,13 @@ mod test {
     }
 
     #[test]
-    fn test_upper_bound() {
-        fn binary_search(value: usize, vec: &Vec<usize>) -> usize {
-            // vec[]の中で、value > vec[index]となる最小のindexを探す。
-            let is_ok = |index: usize| -> bool { value > vec[index] };
+    fn test_array_1() {
+        fn binary_search(target: usize, vec: &Vec<usize>) -> usize {
+            // vec[]の中で、vec[index] < targetとなる最大のindexを探す。
+            let is_ok = |index: usize| -> bool { vec[index] < target };
+            let mut ok = 0; // 満たす中でとりうる値の限界
+            let mut ng = vec.len() as i64; // ギリギリ満たさない数
 
-            let mut ok = vec.len() as i64 - 1; // 満たす中での絶対値が大きい数
-            let mut ng = -1; // ギリギリ満たさない数
             while (ok - ng).abs() > 1 {
                 let mid = (ok + ng) / 2;
                 if is_ok(mid as usize) {
@@ -71,8 +66,33 @@ mod test {
         }
 
         let vec: Vec<usize> = (0..=10).into_iter().map(|e| e * 2).collect();
-        // TODO
-        //let index = binary_search(5, &vec);
-        //assert_eq!(index, 4);
+        // [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+        let index = binary_search(5, &vec);
+        assert_eq!(index, 2);
+    }
+
+    #[test]
+    fn test_array_2() {
+        fn binary_search(target: usize, vec: &Vec<usize>) -> usize {
+            // vec[]の中で、vec[index] >= targetとなる最小のindexを探す。
+            let is_ok = |index: usize| -> bool { vec[index] >= target };
+            let mut ok = vec.len() as i64 - 1; // 満たす中でとりうる値の限界
+            let mut ng = -1; // ギリギリ満たさない数
+
+            while (ok - ng).abs() > 1 {
+                let mid = (ok + ng) / 2;
+                if is_ok(mid as usize) {
+                    ok = mid;
+                } else {
+                    ng = mid;
+                }
+            }
+            ok as usize
+        }
+
+        let vec: Vec<usize> = (0..=10).into_iter().map(|e| e * 2).collect();
+        // [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+        let index = binary_search(5, &vec);
+        assert_eq!(index, 3);
     }
 }

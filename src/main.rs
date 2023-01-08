@@ -24,7 +24,16 @@ use std::{
 // use superslice::Ext;
 
 fn main() {
-    
+    let n = read_u();
+    let mut s_vec = Vec::new();
+    for n in 0..n {
+        let s = read_string();
+        s_vec.push(s);
+    }
+    s_vec.reverse();
+    for s in s_vec {
+        println!("{}", s);
+    }
 }
 
 mod procon_input {

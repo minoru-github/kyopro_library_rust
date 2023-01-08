@@ -1,7 +1,5 @@
 #![allow(unused)]
-use itertools::Itertools;
 use my_lib::*;
-use num_integer::Roots;
 use procon_input::*;
 use std::{
     cell::RefCell,
@@ -26,24 +24,7 @@ use std::{
 // use superslice::Ext;
 
 fn main() {
-    let n = read_u();
-    for n in 0..n {
-        let N = read_u();
-        let mut x = N;
-        let mut a = 2;
-        loop {
-            if x % a == 0 {
-                if x % (a * a) == 0 {
-                    println!("{} {}", a, N / (a * a));
-                    break;
-                } else {
-                    println!("{} {}", (N / a).sqrt(), a);
-                    break;
-                }
-            }
-            a += 1;
-        }
-    }
+    
 }
 
 mod procon_input {

@@ -1,4 +1,5 @@
 #![allow(unused)]
+use itertools::Itertools;
 use my_lib::*;
 use procon_input::*;
 use std::{
@@ -24,15 +25,12 @@ use std::{
 // use superslice::Ext;
 
 fn main() {
-    let n = read_u();
-    let mut s_vec = Vec::new();
-    for n in 0..n {
-        let s = read_string();
-        s_vec.push(s);
-    }
-    s_vec.reverse();
-    for s in s_vec {
-        println!("{}", s);
+    let num_test_cases = read_u();
+    for t in 0..num_test_cases {
+        let n = read_u();
+        let a_vec = read_u_vec();
+        let cnt = a_vec.iter().filter(|a| a.is_odd()).count();
+        println!("{}", cnt);
     }
 }
 

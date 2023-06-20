@@ -51,7 +51,7 @@
 	},
 	"input String": {
 		"prefix": "sin",
-		"body": "let s = read_string();",
+		"body": "let s = read_string_as_chars();",
 	},
 	"yes": {
 		"prefix": "yes",

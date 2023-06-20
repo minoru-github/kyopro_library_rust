@@ -184,7 +184,7 @@ mod procon_input {
     }
 
     pub fn read_string() -> String {
-        read_block()
+        read_block::<String>()
     }
 }
 
